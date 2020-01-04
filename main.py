@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from PyQt5.QtGui import QPalette, QColor, QTextCursor
 from spleeter.spleeter.separator import Separator
 from spleeter.spleeter.utils import logging
-
 import sys
 
 class Stream(QObject):
@@ -158,7 +157,7 @@ class SpleeterGUI(QWidget):
     def file_picker_button_click(self):
         the_file = QFileDialog.Options()
         the_file |= QFileDialog.DontUseNativeDialog
-        file_name, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=the_file)
+        file_name, _ = QFileDialog.getOpenFileName(None, "Open Music...", "","MP3 files (*.mp3);;All Files (*)", options=the_file)
         if file_name:
             self.mp3file = file_name
             print(self.mp3file)
