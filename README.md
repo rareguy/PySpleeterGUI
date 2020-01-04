@@ -1,7 +1,9 @@
 # PySpleeterGUI
 An interface of Spleeter project by Deezer to ease musician removing instruments from a music.
 This is a simple interface for [Spleeter](https://github.com/deezer/spleeter), the [Deezer](https://www.deezer.com) source separation library with pretrained models written in Python and uses Tensorflow, as the original repository said. This is my first actual Python project, so please bear with this project's unhandled measures and not-the-best practices.
-Developed using [PyQt5](https://pypi.org/project/PyQt5/), for Python 3.x.
+
+Developed using [PyQt5](https://pypi.org/project/PyQt5/), for Python 3.x on Windows.
+
 MIT License.
 
 # How to use
