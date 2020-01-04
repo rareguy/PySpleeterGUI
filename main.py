@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QMe
     QGroupBox, QGridLayout, QTextEdit
 from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from PyQt5.QtGui import QPalette, QColor, QTextCursor
+from spleeter.spleeter.separator import Separator
+from spleeter.spleeter.utils import logging
 
 import sys
 
@@ -10,8 +12,6 @@ class Stream(QObject):
 
     def write(self, text):
         self.newText.emit(str(text))
-
-
 
 class SpleeterGUI(QWidget):
     def __init__(self, app):
@@ -24,7 +24,9 @@ class SpleeterGUI(QWidget):
         self.height = 240
         self.layout = QVBoxLayout()
         self.mp3file = ""
+        print(logging.get_logger())
         sys.stdout = Stream(newText=self.onUpdateText)
+        sys.stderr = Stream(newText=self.onUpdateText)
         self.initUI()
         
     def initUI(self):
@@ -65,7 +67,7 @@ class SpleeterGUI(QWidget):
         vbox.addWidget(self.filename_text)
         group_box_file.setLayout(vbox)
         
-        self.format_render = self.create_new_dropdown(["A", "B", "c"], self.format_button_click)
+        self.format_render = self.create_new_dropdown(["spleeter:2stems"], self.format_button_click)
         vbox = QVBoxLayout()
         vbox.addWidget(self.format_render)
         group_box_format.setLayout(vbox)
@@ -159,12 +161,16 @@ class SpleeterGUI(QWidget):
         file_name, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=the_file)
         if file_name:
             self.mp3file = file_name
+            print(self.mp3file)
             self.update_text(self.filename_text, "Your file is:" + file_name)
     
     def render_button_click(self):
         alert = QMessageBox()
-        # TODO: render using this button
-        alert.setText("I should put render here... whatever.")
+        logging.enable_logging()
+        separator = Separator(self.format_render.currentText())
+        separator.separate_to_file(self.mp3file, "out")
+        
+        alert.setText("Done!")
         alert.exec_()
     
     def format_button_click(self):
