@@ -169,8 +169,9 @@ class SpleeterGUI(QWidget):
         separator = Separator(self.format_render.currentText())
         separator.separate_to_file(self.mp3file, "out")
         
-        alert.setText("Done!")
+        alert.setText("Done! Your result is saved in out/")
         alert.exec_()
+        print("Finished rendering", self.mp3file)
     
     def format_button_click(self):
         print("Chosen index is: ", self.format_render.currentText())
